@@ -1,0 +1,35 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+   /* box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;*/
+    box-shadow: none;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+.dt-layout-start{
+    padding-left:20px;
+}
+.dt-layout-end {
+    padding-right: 20px;
+}
+.dt-input:focus{
+    outline:none;
+}
+#dt-length-0{
+    margin-right:20px;
+}

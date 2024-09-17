@@ -1,0 +1,37 @@
+﻿@using Nithish_SuperMarket.Models;
+@model ProductModel;
+
+<div class="row justify-content-center" >
+	
+	<form method="post" class="w-50 border border-1 rounded-2 p-5 shadow-lg">
+		<div><h2 class="text-center mb-3" style="color:#F9821C">Add Product</h2></div>
+		<div class="mb-3">
+			<label asp-for="@Model.Name" class="fw-bold mb-2"></label>
+			<input type="text" asp-for="@Model.Name" class="w-100 p-1 rounded-2 border-1" />
+			<span asp-validation-for="@Model.Name" class="text-danger"></span>
+		</div>
+		<div class="mb-3">
+			<label asp-for="@Model.Quantity" class="fw-bold mb-2"></label>
+			<input type="number" asp-for="@Model.Quantity" class="w-100 p-1 rounded-2  border-1" />
+			<span asp-validation-for="@Model.Quantity" class="text-danger"></span>
+		</div>
+		<div class="mb-3">
+			<label asp-for="@Model.Price" class="fw-bold mb-2"></label>
+			<input type="number" asp-for="@Model.Price" class="w-100 p-1 rounded-2  border-1" />
+			<span asp-validation-for="@Model.Price" class="text-danger"></span>
+		</div>
+		<div class="mb-3">
+			<label asp-for="@Model.Discount" class="fw-bold mb-2"></label>
+			<input type="number" asp-for="@Model.Discount" class="w-100 p-1 rounded-2  border-1" />
+			<span asp-validation-for="@Model.Discount" class="text-danger"></span>
+		</div>
+		<div class="text-end">
+			<a asp-controller="Product" asp-action="Index" class="btn btn-secondary me-2">Cancel</a>
+			<button type="submit" class="text-white border-0 rounded-2 p-2" style="background-color:#F9821C">Add Product</button>
+		</div>
+	</form>
+</div>
+
+@section Scripts{
+	<partial name="_ValidationScriptsPartial" />
+}
