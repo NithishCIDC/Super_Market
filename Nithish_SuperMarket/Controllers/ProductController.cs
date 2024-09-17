@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Nithish_SuperMarket.Data;
-using Nithish_SuperMarket.Models;
+using SuperMarket.Domain.Models;
+using SuperMarket.Infrastructure.Data;
+using System.Diagnostics;
 
-namespace Nithish_SuperMarket.Controllers
+namespace SuperMarket.Web.Controllers
 {
 	public class ProductController : Controller
 	{
@@ -78,6 +79,12 @@ namespace Nithish_SuperMarket.Controllers
 				dbContext.SaveChanges();
 			}
 			return RedirectToAction("Index", "Product");
+		}
+
+		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+		public IActionResult Error()
+		{
+			return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
 		}
 	}
 }

@@ -5,15 +5,15 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Nithish_SuperMarket.Data;
+using SuperMarket.Infrastructure.Data;
 
 #nullable disable
 
-namespace Nithish_SuperMarket.Migrations
+namespace SuperMarket.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240916131806_Quan deci to int")]
-    partial class Quandecitoint
+    [Migration("20240917124202_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,7 +25,7 @@ namespace Nithish_SuperMarket.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Nithish_SuperMarket.Models.ProductModel", b =>
+            modelBuilder.Entity("SuperMarket.Domain.Models.ProductModel", b =>
                 {
                     b.Property<Guid>("id")
                         .ValueGeneratedOnAdd()

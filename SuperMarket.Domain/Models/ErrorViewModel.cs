@@ -1,4 +1,5 @@
-namespace Nithish_SuperMarket.Models
+﻿
+namespace SuperMarket.Domain.Models
 {
 	public class ErrorViewModel
 	{

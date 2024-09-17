@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using Nithish_SuperMarket.Data;
+using SuperMarket.Infrastructure.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
