@@ -20,7 +20,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SuperMarket.Domain\SuperMarket.Domain.csproj" />
-    <ProjectReference Include="..\SuperMarket.Infrastructure\SuperMarket.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

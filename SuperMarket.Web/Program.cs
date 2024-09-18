@@ -1,13 +1,15 @@
 using Microsoft.EntityFrameworkCore;
-using SuperMarket.Application.Repository;
+using SuperMarket.Application.Contracts.Presistence;
 using SuperMarket.Infrastructure.Data;
+using SuperMarket.Infrastructure.Repository;
+using SuperMarket.Infrastructure.UnitOfWork;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddScoped<IProductsRepository, ProductsRepository>();
 builder.Services.AddDbContext<ApplicationDbContext>(options=>options.UseSqlServer(builder.Configuration.GetConnectionString("products")));
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 var app = builder.Build();
 

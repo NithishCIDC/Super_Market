@@ -1,23 +1,24 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SuperMarket.Application.Repository;
+using Microsoft.JSInterop;
+using SuperMarket.Application.Contracts.Presistence;
 using SuperMarket.Domain.Models;
 using System.Diagnostics;
 
 namespace SuperMarket.Web.Controllers
 {
-	public class ProductController : Controller
+    public class ProductController : Controller
 	{
-		private readonly IProductsRepository productsRepository;
+		private readonly IUnitOfWork unitOfWork;
 
-		public ProductController(IProductsRepository productsRepository)
+		public ProductController(IUnitOfWork unitOfWork)
         {
-			this.productsRepository = productsRepository;
+			this.unitOfWork = unitOfWork;
 		}
 
         [HttpGet]
-		public IActionResult Index()
+		public async Task<IActionResult> Index()
 		{
-			var ProductList = productsRepository.GetAll();
+			var ProductList = await unitOfWork.ProductsRepository.GetAll();
 			return View(ProductList);
 		}
 
@@ -28,12 +29,12 @@ namespace SuperMarket.Web.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult Create(ProductModel ViewModel)
+		public async Task<IActionResult> Create(ProductModel ViewModel)
 		{
 			if (ModelState.IsValid)
 			{
-				Boolean b = productsRepository.Create(ViewModel);
-				if(b)
+				unitOfWork.ProductsRepository.Create(ViewModel);
+				await unitOfWork.SaveAsync();
 				return RedirectToAction("Index", "Product");
 			}
 			return View();
@@ -42,21 +43,23 @@ namespace SuperMarket.Web.Controllers
 		[HttpGet]
 		public IActionResult Edit(Guid id)
 		{
-			var item=productsRepository.Get(id);
+			var item = unitOfWork.ProductsRepository.Get(id);
 			return View(item);
 		}
 
 		[HttpPost]
-		public IActionResult Edit(ProductModel ViewModel)
+		public async Task<IActionResult> Edit(ProductModel ViewModel)
 		{
-			productsRepository.Update(ViewModel);
+			unitOfWork.ProductsRepository.Update(ViewModel);
+			await unitOfWork.SaveAsync();
 			return RedirectToAction("Index","Product");
 		}
 
 		[HttpGet]
 		public async Task<IActionResult> Delete(Guid id)
 		{
-			productsRepository.Delete(id);
+			unitOfWork.ProductsRepository.Delete(id);
+			await unitOfWork.SaveAsync();
 			return RedirectToAction("Index", "Product");
 		}
 
