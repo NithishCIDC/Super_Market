@@ -1,7 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using SuperMarket.Domain.Models;
+﻿using SuperMarket.Domain.Models;
 using SuperMarket.Infrastructure.Data;
-using System.Linq;
 
 namespace SuperMarket.Application.Repository
 {
@@ -14,8 +12,8 @@ namespace SuperMarket.Application.Repository
         }
         public ProductModel Get(Guid id)
 		{
-			ProductModel item = dbContext.Products.Find(id);
-			return item;
+				ProductModel item = dbContext.Products.Find(id)!;
+				return item;
 		}
 
 		public IEnumerable<ProductModel> GetAll()
@@ -34,7 +32,7 @@ namespace SuperMarket.Application.Repository
 			dbContext.SaveChanges();
 			return true;
 		}
-		public Boolean Update(ProductModel product)
+		public void Update(ProductModel product)
 		{
 			var item = dbContext.Products.Find(product.id);
 			if (item is not null)
@@ -48,12 +46,16 @@ namespace SuperMarket.Application.Repository
 					item.Discount = 0;
 			}
 			dbContext.SaveChanges();
-			return true;
 		}
 
-		public ProductModel Delete(int id)
+		public void Delete(Guid id)
 		{
-			throw new NotImplementedException();
+			var item = dbContext.Products.Find(id);
+			if (item is not null)
+			{
+				dbContext.Products.Remove(item);
+				dbContext.SaveChanges();
+			}
 		}
 
 	}
