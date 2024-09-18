@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="comman\**" />
+    <EmbeddedResource Remove="comman\**" />
+    <None Remove="comman\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="EntityFramework" Version="6.5.1" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.8" />
   </ItemGroup>
@@ -14,10 +21,6 @@
   <ItemGroup>
     <ProjectReference Include="..\SuperMarket.Domain\SuperMarket.Domain.csproj" />
     <ProjectReference Include="..\SuperMarket.Infrastructure\SuperMarket.Infrastructure.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="comman\" />
   </ItemGroup>
 
 </Project>

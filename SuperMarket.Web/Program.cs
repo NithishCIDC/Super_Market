@@ -1,10 +1,12 @@
 using Microsoft.EntityFrameworkCore;
+using SuperMarket.Application.Repository;
 using SuperMarket.Infrastructure.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<IProductsRepository, ProductsRepository>();
 builder.Services.AddDbContext<ApplicationDbContext>(options=>options.UseSqlServer(builder.Configuration.GetConnectionString("products")));
 
 var app = builder.Build();

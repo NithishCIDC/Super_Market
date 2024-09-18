@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SuperMarket.Application\SuperMarket.Application.csproj" />
     <ProjectReference Include="..\SuperMarket.Infrastructure\SuperMarket.Infrastructure.csproj" />
   </ItemGroup>
 
