@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35303.130
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nithish_SuperMarket", "Nithish_SuperMarket\Nithish_SuperMarket.csproj", "{0425281A-D183-480D-B8AB-656EF482E656}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SuperMarket.Web", "SuperMarket.Web\SuperMarket.Web.csproj", "{0425281A-D183-480D-B8AB-656EF482E656}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SuperMarket.Application", "SuperMarket.Application\SuperMarket.Application.csproj", "{2D9868A3-74E1-405E-AE3F-8CDAC437ACA3}"
 EndProject
