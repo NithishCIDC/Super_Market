@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.JSInterop;
 using SuperMarket.Application.Contracts.Presistence;
 using SuperMarket.Domain.Models;
 using System.Diagnostics;
