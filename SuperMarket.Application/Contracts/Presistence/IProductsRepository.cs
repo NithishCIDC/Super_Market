@@ -6,8 +6,8 @@ namespace SuperMarket.Application.Contracts.Presistence
     {
         Task<ProductModel?> Get(Guid id);
         Task<IEnumerable<ProductModel>> GetAll();
-        void Create(ProductModel product);
-        void Update(ProductModel product);
-        void Delete(Guid id);
+        Task Create(ProductModel product);
+        Task Update(ProductModel product);
+        Task Delete(Guid id);
     }
 }

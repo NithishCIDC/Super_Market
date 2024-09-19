@@ -23,7 +23,7 @@ namespace SuperMarket.Infrastructure.Repository
 			return await dbContext.Products.ToListAsync();
 		}
 
-		public async void Create(ProductModel product)
+		public async Task Create(ProductModel product)
 		{
 			if (product.Discount is null)
 			{
@@ -32,7 +32,7 @@ namespace SuperMarket.Infrastructure.Repository
 			await dbContext.Products.AddAsync(product);
 			dbContext.SaveChanges();
 		}
-		public async void Update(ProductModel product)
+		public async Task Update(ProductModel product)
 		{
 			var item =await dbContext.Products.FindAsync(product.id);
 			if (item is not null)
@@ -44,17 +44,17 @@ namespace SuperMarket.Infrastructure.Repository
 					item.Discount = product.Discount;
 				else
 					item.Discount = 0;
+			 dbContext.SaveChanges();
 			}
-			dbContext.SaveChanges();
 		}
 
-		public async void Delete(Guid id)
+		public async Task Delete(Guid id)
 		{
 			var item = await dbContext.Products.FindAsync(id);
 			if (item is not null)
 			{
 				dbContext.Products.Remove(item);
-				dbContext.SaveChanges();
+				await dbContext.SaveChangesAsync();
 			}
 		}
 	}

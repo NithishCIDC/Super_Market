@@ -34,3 +34,10 @@ body {
 #dt-length-0{
     margin-right:20px;
 }
+.dt-empty {
+    color: #F9821C;
+    font-weight:600;
+    font-size:20px;
+    text-transform:uppercase;
+    word-spacing:5px;
+}
