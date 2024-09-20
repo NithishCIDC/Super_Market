@@ -3,6 +3,8 @@ using SuperMarket.Application.Contracts.Presistence;
 using SuperMarket.Infrastructure.Data;
 using SuperMarket.Infrastructure.UnitOfWork;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using SuperMarket.Application.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,20 +13,17 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options=>options.UseSqlServer(builder.Configuration.GetConnectionString("products")));
 
-builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ApplicationDbContext>();
+builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false).AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
 
 builder.Services.ConfigureApplicationCookie(options =>
 {
-	options.LoginPath = $"/Identity/Account/Login";
-	options.LogoutPath = $"/Identity/Account/Logout";
-	options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
-
+	options.LoginPath = "/Identity/Account/Login";
+	options.LogoutPath="/Identity/Account/Logout";
+	options.AccessDeniedPath = "/Identity/Account/AccessDenied";
 });
 
-builder.Services.AddSession(option =>
-{
-	option.IdleTimeout = TimeSpan.FromMinutes(20);
-});
+builder.Services.AddTransient<IEmailSender, EmailSender>();
+
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
@@ -45,11 +44,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthentication();
-
 app.UseAuthorization();
-
-app.UseSession();
 
 app.MapRazorPages();
 

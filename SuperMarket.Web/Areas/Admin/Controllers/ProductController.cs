@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SuperMarket.Application.Contracts.Presistence;
 using SuperMarket.Domain.Models;
 using System.Diagnostics;
@@ -6,6 +7,7 @@ using System.Diagnostics;
 namespace SuperMarket.Web.Areas.Admin.Controllers
 {
 	[Area("Admin")]
+    [Authorize]
 	public class ProductController : Controller
     {
         private readonly IUnitOfWork unitOfWork;
