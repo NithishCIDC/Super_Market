@@ -8,14 +8,14 @@ namespace SuperMarket.Web.Areas.Admin.Controllers
 {
 	[Area("Admin")]
     [Authorize]
-	public class ProductController : Controller
+	public class ProductController(IUnitOfWork unitOfWork) : Controller
     {
-        private readonly IUnitOfWork unitOfWork;
+        //private readonly IUnitOfWork unitOfWork;
 
-        public ProductController(IUnitOfWork unitOfWork)
-        {
-            this.unitOfWork = unitOfWork;
-        }
+        //public ProductController(IUnitOfWork unitOfWork)
+        //{
+        //    this.unitOfWork = unitOfWork;
+        //}
 
         [HttpGet]
         public async Task<IActionResult> Index()
