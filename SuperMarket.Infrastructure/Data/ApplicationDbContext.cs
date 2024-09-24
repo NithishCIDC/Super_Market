@@ -7,9 +7,8 @@ namespace SuperMarket.Infrastructure.Data
 {
     public class ApplicationDbContext : IdentityDbContext<IdentityUser>
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
-        {
-        }
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
+        
         public DbSet<ProductModel> Products { get; set; }
     }
 }

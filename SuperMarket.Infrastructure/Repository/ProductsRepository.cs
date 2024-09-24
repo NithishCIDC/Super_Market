@@ -20,17 +20,13 @@ namespace SuperMarket.Infrastructure.Repository
 
 		public async Task<IEnumerable<ProductModel>> GetAll()
 		{
-			return await dbContext.Products.ToListAsync();
+			var productList= await dbContext.Products.ToListAsync();
+			return productList;
 		}
 
 		public async Task Create(ProductModel product)
 		{
-			if (product.Discount is null)
-			{
-				product.Discount = 0;
-			}
 			await dbContext.Products.AddAsync(product);
-			dbContext.SaveChanges();
 		}
 		public async Task Update(ProductModel product)
 		{
@@ -40,11 +36,7 @@ namespace SuperMarket.Infrastructure.Repository
 				item.Name = product.Name;
 				item.Quantity = product.Quantity;
 				item.Price = product.Price;
-				if (product.Discount is not null)
-					item.Discount = product.Discount;
-				else
-					item.Discount = 0;
-			 dbContext.SaveChanges();
+				item.Discount = product.Discount;
 			}
 		}
 
@@ -54,7 +46,6 @@ namespace SuperMarket.Infrastructure.Repository
 			if (item is not null)
 			{
 				dbContext.Products.Remove(item);
-				await dbContext.SaveChangesAsync();
 			}
 		}
 	}

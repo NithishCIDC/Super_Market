@@ -21,6 +21,7 @@ html {
 body {
   margin: 0;
   box-sizing:border-box;
+  height:100vh;
 }
 .dt-layout-start{
     padding-left:20px;
