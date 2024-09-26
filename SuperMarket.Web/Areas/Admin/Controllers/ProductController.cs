@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using SuperMarket.Application.ApplicationConstants;
 using SuperMarket.Application.Contracts.Presistence;
 using SuperMarket.Domain.Models;
 using System.Diagnostics;
@@ -8,28 +10,30 @@ namespace SuperMarket.Web.Areas.Admin.Controllers
 {
 	[Area("Admin")]
     [Authorize]
-	public class ProductController(IUnitOfWork unitOfWork) : Controller
+	public class ProductController : Controller
     {
-        //private readonly IUnitOfWork unitOfWork;
+        private readonly IUnitOfWork unitOfWork;
+       
+		public ProductController(IUnitOfWork unitOfWork)
+        {
+            this.unitOfWork = unitOfWork;
+        }
 
-        //public ProductController(IUnitOfWork unitOfWork)
-        //{
-        //    this.unitOfWork = unitOfWork;
-        //}
-
-        [HttpGet]
+		[HttpGet]
         public async Task<IActionResult> Index()
         {
-            var ProductList = await unitOfWork.ProductsRepository.GetAll();
+			var ProductList = await unitOfWork.ProductsRepository.GetAll();
             return View(ProductList);
         }
 
-        [HttpGet]
+		[Authorize(Roles = CustomeRole.Admin)]
+		[HttpGet]
         public IActionResult Create()
         {
             return View();
         }
 
+        [Authorize(Roles =CustomeRole.Admin)]
         [HttpPost]
         public async Task<IActionResult> Create(ProductModel ViewModel)
         {
@@ -41,23 +45,23 @@ namespace SuperMarket.Web.Areas.Admin.Controllers
             }
             return View();
         }
-
-        [HttpGet]
+		[Authorize(Roles = CustomeRole.Admin)]
+		[HttpGet]
         public async Task<IActionResult> Edit(Guid id)
         {
             var item =await unitOfWork.ProductsRepository.Get(id);
             return View(item);
         }
-
-        [HttpPost]
+		[Authorize(Roles = CustomeRole.Admin)]
+		[HttpPost]
         public async Task<IActionResult> Edit(ProductModel ViewModel)
         {
             await unitOfWork.ProductsRepository.Update(ViewModel);
             await unitOfWork.SaveAsync();
             return RedirectToAction("Index", "Product");
         }
-
-        [HttpGet]
+		[Authorize(Roles = CustomeRole.Admin)]
+		[HttpGet]
         public async Task<IActionResult> Delete(Guid id)
         {
             await unitOfWork.ProductsRepository.Delete(id);

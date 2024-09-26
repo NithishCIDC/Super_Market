@@ -8,6 +8,7 @@ using SuperMarket.Application.Services;
 using FluentValidation.AspNetCore;
 using SuperMarket.Domain.Validation;
 using FluentValidation;
+using SuperMarket.Infrastructure.SeedData;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +19,18 @@ builder.Services.AddFluentValidationAutoValidation().AddFluentValidationClientsi
 builder.Services.AddDbContext<ApplicationDbContext>(options=>options.UseSqlServer(builder.Configuration.GetConnectionString("products")));
 
 builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false).AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
+
+#region Data Seeding
+static async void updateDatabase(IHost host)
+{
+	using(var scope = host.Services.CreateScope())
+	{
+		var service = scope.ServiceProvider;
+		var context = service.GetRequiredService<RoleManager<IdentityRole>>();
+		await SeedData.AddRolesAsync(context);
+	}
+}
+#endregion
 
 builder.Services.ConfigureApplicationCookie(options =>
 {
@@ -34,6 +47,7 @@ builder.Services.AddRazorPages();
 
 var app = builder.Build();
 
+updateDatabase(app);
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
