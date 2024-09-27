@@ -16,14 +16,14 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters().AddValidatorsFromAssemblyContaining<Validation>();
 
-builder.Services.AddDbContext<ApplicationDbContext>(options=>options.UseSqlServer(builder.Configuration.GetConnectionString("products")));
+builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("products")));
 
 builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false).AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
 
 #region Data Seeding
 static async void updateDatabase(IHost host)
 {
-	using(var scope = host.Services.CreateScope())
+	using (var scope = host.Services.CreateScope())
 	{
 		var service = scope.ServiceProvider;
 		var context = service.GetRequiredService<RoleManager<IdentityRole>>();
@@ -35,8 +35,13 @@ static async void updateDatabase(IHost host)
 builder.Services.ConfigureApplicationCookie(options =>
 {
 	options.LoginPath = "/Identity/Account/Login";
-	options.LogoutPath="/Identity/Account/Logout";
+	options.LogoutPath = "/Identity/Account/Logout";
 	options.AccessDeniedPath = "/Identity/Account/AccessDenied";
+});
+
+builder.Services.AddSession(options =>
+{
+	options.IdleTimeout = TimeSpan.FromMinutes(5);
 });
 
 builder.Services.AddTransient<IEmailSender, EmailSender>();
@@ -48,6 +53,7 @@ builder.Services.AddRazorPages();
 var app = builder.Build();
 
 updateDatabase(app);
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
@@ -61,7 +67,11 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
+
 app.UseAuthorization();
+
+app.UseSession();
 
 app.MapRazorPages();
 
