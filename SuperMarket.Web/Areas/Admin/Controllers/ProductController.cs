@@ -45,6 +45,7 @@ namespace SuperMarket.Web.Areas.Admin.Controllers
             }
             return View();
         }
+
 		[Authorize(Roles = CustomeRole.Admin)]
 		[HttpGet]
         public async Task<IActionResult> Edit(Guid id)
@@ -52,6 +53,7 @@ namespace SuperMarket.Web.Areas.Admin.Controllers
             var item =await unitOfWork.ProductsRepository.Get(id);
             return View(item);
         }
+
 		[Authorize(Roles = CustomeRole.Admin)]
 		[HttpPost]
         public async Task<IActionResult> Edit(ProductModel ViewModel)
